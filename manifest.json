@@ -1,0 +1,42 @@
+{
+  "name": "谢局专用五毛刷",
+  "manifest_version": 2,
+  "version": "1.0",
+  "description": "谢局专用彩虹屁眼子",
+  "icons": {
+    "16": "img/shite-logo-white.png",
+    "48": "img/shite-logo-white.png",
+    "32": "img/shite-logo-white.png",
+    "128": "img/shite-logo-white.png"
+  },
+  "page_action":
+  {
+    "default_icon": "img/shite-logo-white.png",
+    "default_title": "谢局专用彩虹屁眼子",
+    "default_popup": "html/popup.html"
+  },
+  "content_scripts":[
+    {
+      "matches": ["http://*.ifeng.com/*", "https://*.ifeng.com/*"],
+      "js": ["js/robot.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "permissions":
+  [
+    "activeTab",
+    "contextMenus",
+    "tabs",
+    "notifications",
+    "webRequest",
+    "webRequestBlocking",
+    "storage",
+    "http://*/*",
+    "https://*/*",
+    "declarativeContent"
+  ],
+  "background": {
+    "scripts": ["js/background.js"],
+    "persistent": true
+  }
+}
