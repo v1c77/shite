@@ -3,19 +3,29 @@
 // found in the LICENSE file.
 
 'use strict';
-
-let changeColor = document.getElementById('changeColor');
-chrome.storage.sync.get('color', function(data) {
-  changeColor.style.backgroundColor = data.color;
-  changeColor.setAttribute('value', data.color);
+let KEY_CONTENT = "content";
+let content = document.getElementById('contents');
+chrome.storage.sync.get(function (data) {
+  content.value = data[KEY_CONTENT] || "谢局晚上好。";
+  console.log("loaded", content.value);
 });
 
-changeColor.onclick = function(element) {
-  let color = element.target.value;
-  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+let submitBtn = document.getElementById('sbBtn');
+submitBtn.onclick = function (element) {
+  let new_content = content.value;
+  let data = {};
+  data[KEY_CONTENT] = new_content;
+  chrome.storage.sync.set(data);
+  let b64 = btoa(unescape(encodeURIComponent(new_content)));
+  console.log("encodeb64:", b64);
+
+  // reconcile task.  post commit
+  chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
+    let code  = "var myScript = document.createElement('script');"
+      + "myScript.textContent = 'shite_inject.cmtGen(\"" + b64 + "\");';"
+      + "document.head.appendChild(myScript);";
     chrome.tabs.executeScript(
       tabs[0].id,
-      {code: 'document.body.style.backgroundColor = "' + color + '";console.log("I\'m green !")'});
+      {code: code});
   });
-    console.log("I'm green !");
 };

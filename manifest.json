@@ -15,6 +15,7 @@
     "default_title": "谢局专用彩虹屁眼子",
     "default_popup": "html/popup.html"
   },
+  "web_accessible_resources": ["js/inject.js"],
   "content_scripts":[
     {
       "matches": ["http://*.ifeng.com/*", "https://*.ifeng.com/*"],
