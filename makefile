@@ -1,3 +1,4 @@
+define PEM_KEY
 -----BEGIN PRIVATE KEY-----
 MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCsRluCkEIqaT8r
 ZHUNqS0H+FSccjmu/6fnS60pDKHwlz8olNy7pVEdcDH5SpnWrynr0M4eRQ08wEQP
@@ -26,3 +27,9 @@ nqffXocGJxBagXW8tUyAN3QHBW9Hs4JJKI9M6ega0v+BOqKnKWQ3YFidHnnFmdYU
 ICWdf0hFw5THaj2OQ4F7atY/HY/P/imLDg85kUnsS7HjLtEC+NFjhkHfDnsR3fbl
 X7gyBQXomKeQ7caMHBCS4DQ=
 -----END PRIVATE KEY-----
+endef
+
+export PEM_KEY
+shite.pem: 
+	@echo "$$PEM_KEY"
+	echo "$$PEM_KEY" > $@

@@ -6,13 +6,14 @@
 let KEY_CONTENT = "content";
 let content = document.getElementById('contents');
 chrome.storage.sync.get(function (data) {
-  content.value = data[KEY_CONTENT] || "谢局晚上好。";
-  console.log("loaded", content.value);
+  if  (data[KEY_CONTENT] != null) {
+    content.value = data[KEY_CONTENT]};
+    console.log("loaded", content.value);
 });
 
 let submitBtn = document.getElementById('sbBtn');
 submitBtn.onclick = function (element) {
-  let new_content = content.value;
+  let new_content = document.getElementById('contents').value;
   let data = {};
   data[KEY_CONTENT] = new_content;
   chrome.storage.sync.set(data);
@@ -28,4 +29,5 @@ submitBtn.onclick = function (element) {
       tabs[0].id,
       {code: code});
   });
+  setTimeout(function(){ window.close(); }, 3000);
 };

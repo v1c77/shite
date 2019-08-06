@@ -35,10 +35,17 @@ require(["news_F_comment#1.5.2", "jquery#1.8.1", "detail"],
       cmtGen: async function (b64) {
         let doc = decodeURIComponent(escape(window.atob(b64)));
         let comments =  doc.split(/[。！？；：～ .:;?!~`"&|\[\]\r\n\s/\\]+/);
-        console.log(comments);
+        let newcomments = comments.filter(item => item);
+        
+        if (!newcomments.length) {
+          console.log("无话可说")
+          return
+        }
+        console.log(newcomments);
         // reconcile task.  post commit
-        for (let idx = 0; idx < comments.length; idx++) {
-          let cmt = comments[idx];
+        for (let idx = 0; newcomments.length > 0 &&idx < newcomments.length; idx++) {
+          let cmt = newcomments[idx];
+          if (cmt == null) {}
           console.log("comment  ", idx + 1, ":", cmt);
           this.doPush(cmt);
           await this.sleep(10000);
